@@ -17,7 +17,7 @@ export const UPDATE_GODATA_SERVER_CONSTANT_MUTATION = {
             id: 'M5zQapPyTZI',
             username: 'admin',
             },*/
-            lastUpdated: Date.now(),
+            lastUpdated: new Date().toISOString(),
         value: '-1000001',
     }),
 }

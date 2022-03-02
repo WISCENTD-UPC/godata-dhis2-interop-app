@@ -17,8 +17,8 @@ export const UPDATE_CASES_CONSTANT_MUTATION = {
             id: 'M5zQapPyTZI',
             username: 'admin',
             },*/
-            created: Date.now(),
-            lastUpdated: Date.now(),
+            created: new Date().toISOString(),
+            lastUpdated: new Date().toISOString(),
         value: '-1000000',
     }),
 }

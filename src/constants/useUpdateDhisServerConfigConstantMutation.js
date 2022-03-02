@@ -11,7 +11,7 @@ export const UPDATE_DHIS_SERVER_CONSTANT_MUTATION = {
         code: 'dhis2serverconf',
         name: 'DHIS2 Server configs',
         description: '{"id": "' + id + '", "urlTemplate": "' + urlTemplate + '", "username": "' + username + '", "password": "' + password + '"}',
-        lastUpdated: Date.now(),
+        lastUpdated: new Date().toISOString(),
         value: '-1000003',
     }),
 }
