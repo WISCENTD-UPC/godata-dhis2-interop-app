@@ -201,6 +201,8 @@ export const CasesForm = ({
 
         if(data) {
             async function login() {
+                console.log("========================");
+                console.log(loginDetails.urlTemplate)
                 try {
                   let res = await axios({
                     method: 'POST',

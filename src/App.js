@@ -31,6 +31,7 @@ import {
     DhisConfigForm,
     HOME_PATH,
     Home,
+    TestComponent,
 } from './views'
 import { dataTest } from './dataTest'
 
@@ -46,87 +47,93 @@ const App = () => {
     }
 
     return (
-    <AlertHandler>
-        <CssVariables spacers colors />
-        <HashRouter>
-            <div className={styles.container} data-test={dataTest('app')}>
-                <div className={styles.sidebar}>
-                    <Navigation />
+        <AlertHandler>
+            <CssVariables spacers colors />
+            <HashRouter>
+                <div className={styles.container} data-test={dataTest('app')}>
+                    <div className={styles.sidebar}>
+                        <Navigation />
+                    </div>
+
+                    <main className={styles.content}>
+                        <Switch>
+                            <Route exact path={HOME_PATH} component={Home} />
+
+                            {/* Go.Data configuration */ ''}
+                            <Route
+                                exact
+                                path={GODATA_CONFIG_FORM_PATH}
+                                component={GoDataConfigForm}
+                            />
+
+                            {/* Dhis2 configuration */ ''}
+                            <Route
+                                exact
+                                path={DHIS_CONFIG_FORM_PATH}
+                                component={DhisConfigForm}
+                            />
+
+                            {/* MetaData configuration */ ''}
+                            <Route
+                                exact
+                                path={METADATA_CONFIG_LIST_PATH}
+                                component={MetadataConfigList}
+                            />
+
+                            <Route
+                                exact
+                                path={METADATA_CONFIG_FORM_EDIT_PATH}
+                                component={MetadataConfigFormEdit}
+                            />
+                            <Route
+                                exact
+                                path={METADATA_CONFIG_FORM_NEW_PATH}
+                                component={MetadataConfigFormNew}
+                            />
+
+                            {/* Interoperability Tasks */}
+                            <Route
+                                exact
+                                path={INTEROP_LIST_PATH}
+                                component={InteropList}
+                            />
+
+                            <Route
+                                exact
+                                path={INTEROP_FORM_NEW_PATH}
+                                component={InteropFormNew}
+                            />
+
+                            <Route
+                                exact
+                                path={INTEROP_FORM_EDIT_PATH}
+                                component={InteropFormEdit}
+                            />
+
+                            <Route
+                                exact
+                                path={INTEROP_RUN_TASK_FORM_PATH}
+                                component={InteropRunTaskForm}
+                            />
+
+                            <Route
+                                exact
+                                path={SCHEDULED_TASK_FORM_PATH}
+                                component={ScheduleTaskForm}
+                            />
+                            <Route
+                                exact
+                                path={'/test'}
+                                component={TestComponent}
+                            />
+
+                            <Redirect from="*" to={HOME_PATH} />
+                        </Switch>
+                    </main>
                 </div>
-
-                <main className={styles.content}>
-                    <Switch>
-                        <Route exact path={HOME_PATH} component={Home} />
-
-                        {/* Go.Data configuration */ ''}
-                        <Route
-                            exact
-                            path={GODATA_CONFIG_FORM_PATH}
-                            component={GoDataConfigForm}
-                        />
-
-                        {/* Dhis2 configuration */ ''}
-                        <Route
-                            exact
-                            path={DHIS_CONFIG_FORM_PATH}
-                            component={DhisConfigForm}
-                        />
-
-                        {/* MetaData configuration */ ''}
-                        <Route
-                            exact
-                            path={METADATA_CONFIG_LIST_PATH}
-                            component={MetadataConfigList}
-                        />
-
-                        <Route
-                            exact
-                            path={METADATA_CONFIG_FORM_EDIT_PATH}
-                            component={MetadataConfigFormEdit}
-                        />
-
-                        <Route
-                            exact
-                            path={METADATA_CONFIG_FORM_NEW_PATH}
-                            component={MetadataConfigFormNew}
-                        />
-
-                        <Route
-                            exact
-                            path={INTEROP_LIST_PATH}
-                            component={InteropList}
-                        />
-                        
-                        <Route
-                            exact
-                            path={INTEROP_FORM_NEW_PATH}
-                            component={InteropFormNew}
-                        />
-
-                        <Route
-                            exact
-                            path={INTEROP_FORM_EDIT_PATH}
-                            component={InteropFormEdit}
-                        />
-
-                        <Route
-                            exact
-                            path={INTEROP_RUN_TASK_FORM_PATH}
-                            component={InteropRunTaskForm}
-                        />
-                        
-                        <Route
-                            exact
-                            path={SCHEDULED_TASK_FORM_PATH}
-                            component={ScheduleTaskForm}
-                        />
-
-                        <Redirect from="*" to={HOME_PATH} />
-                    </Switch>
-                </main>
-            </div>
-        </HashRouter>
-    </AlertHandler>)
+            </HashRouter>
+        </AlertHandler>
+    )
 }
 
 export default App

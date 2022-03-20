@@ -47,6 +47,10 @@ const getInitialValues = jsonData => {
         if (GODATA_ORG_UNIT === selectedForm) {
             return LocationsForm
         }
+
+        if (selectedForm === "DHIS Custom") {
+            return CasesForm
+        }
         throw new Error(`The conversion type does not exist, got "${selectedForm}"`)
     }
 

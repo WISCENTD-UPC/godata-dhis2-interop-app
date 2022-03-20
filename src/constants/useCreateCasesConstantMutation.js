@@ -4,20 +4,11 @@ export const CREATE_CASES_CONSTANT_MUTATION = {
     resource: 'constants',
     type: 'create',
     data: ({ allValues, nameInput }) => ({
-        //displayName: 'Go.Data (URL)1',
         shortName: nameInput,
-        //code: 'dhis2serverconf',
         name: nameInput,
-        description: JSON.stringify(allValues) ,
-/*        createdBy: {
-            code: 'admin', 
-            displayName: 'admin admin',
-            name: 'admin admin',
-            id: 'M5zQapPyTZI',
-            username: 'admin',
-            },*/
-            created: new Date().toISOString(),
-            lastUpdated: new Date().toISOString(),
+        description: JSON.stringify(allValues),
+        created: new Date().toISOString(),
+        lastUpdated: new Date().toISOString(),
         value: '-1000000',
     }),
 }

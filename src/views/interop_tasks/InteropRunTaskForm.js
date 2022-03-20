@@ -92,7 +92,6 @@ export const InteropRunTaskForm = () => {
     let [color, setColor] = useState('#ffffff')
 
     const config = useConfig()
-    console.log(JSON.stringify(config.baseUrl))
 
     const createAuthenticationHeader = (username, password) => {
         return (
@@ -108,7 +107,6 @@ export const InteropRunTaskForm = () => {
     api.getValue('dhis2-godata-interop-configuration', 'godatauser')
         .then(response => {
             setGodataUser(response.value)
-            console.log('godatauser ' + JSON.stringify(response.value))
         })
         .catch(e => {
             setGodataUser('')
@@ -123,7 +121,6 @@ export const InteropRunTaskForm = () => {
     api.getValue('dhis2-godata-interop-configuration', 'godatauserpass')
         .then(response => {
             setGodataUserPass(response.value)
-            console.log('godatauser pass ' + JSON.stringify(response.value))
         })
         .catch(e => {
             setGodataUserPass('')
@@ -138,7 +135,6 @@ export const InteropRunTaskForm = () => {
     api.getValue('dhis2-godata-interop-configuration', 'godatabaseurl')
         .then(response => {
             setGodataUrl(response.value)
-            console.log('godatabaseurl ' + JSON.stringify(response.value))
         })
         .catch(e => {
             setGodataUrl('')
@@ -157,7 +153,6 @@ export const InteropRunTaskForm = () => {
     api.getValue('dhis2-godata-interop-configuration', 'dhisuser')
         .then(response => {
             setDhisUser(response.value)
-            console.log('dhisuser ' + JSON.stringify(response.value))
         })
         .catch(e => {
             setDhisUser('')
@@ -166,13 +161,11 @@ export const InteropRunTaskForm = () => {
                 'dhisuser',
                 ''
             )
-            console.log(e)
         })
 
     api.getValue('dhis2-godata-interop-configuration', 'dhisuserpass')
         .then(response => {
             setDhisUserPass(response.value)
-            console.log('dhisuser pass ' + JSON.stringify(response.value))
         })
         .catch(e => {
             setDhisUserPass('')
@@ -181,7 +174,6 @@ export const InteropRunTaskForm = () => {
                 'dhisuserpass',
                 ''
             )
-            console.log(e)
         })
 
     const {
@@ -209,9 +201,6 @@ export const InteropRunTaskForm = () => {
             password: godataUserPass,
         })
 
-        console.log('gcreds ' + JSON.stringify(loginDetailsGodata))
-        //    const loginDetailsGodata = data && data.constants.constants.length > 0 ? JSON.parse(data.constants.constants[0].description) : {};
-
         let dhisBaseUrl = config.baseUrl
 
         setCredentialsValuesDhis({
@@ -220,11 +209,6 @@ export const InteropRunTaskForm = () => {
             password: dhisUserPass,
         })
 
-        console.log('dcreds ' + JSON.stringify(loginDetailsDhis))
-        //const loginDetailsDhis = progData && progData.constants.constants.length > 0 ? JSON.parse(progData.constants.constants[0].description) : {};
-
-        //    console.log('loginDetailsDhis ' + JSON.stringify(loginDetailsDhis));
-        //    console.log('loginDetailsGodata ' + JSON.stringify(loginDetailsGodata));
         setGodataLogin(loginDetailsGodata)
         messg = StatusAlertService.showSuccess(
             i18n.t('Reading task configurations - Success.')
@@ -257,9 +241,6 @@ export const InteropRunTaskForm = () => {
                     })
 
                     if (res.status == 200) {
-                        console.log('res.data.id ' + res.data.id) //setToken(res.data.id)//in promise??
-
-                        console.log('token ' + token)
                         messg = StatusAlertService.showSuccess(
                             i18n.t('Loging to Go.Data Instance Success.')
                         )
@@ -308,6 +289,8 @@ export const InteropRunTaskForm = () => {
                             })
 
                             const getMappings = async id => {
+                                console.log("CUSTOOOM");
+                                console.log(id);
                                 var mappingObject = await axios.get(
                                     loginDetailsDhis.urlTemplate +
                                         '/api/constants/' +
@@ -338,7 +321,6 @@ export const InteropRunTaskForm = () => {
                                             JSON.stringify(mappingObjectMeta)
                                         )
                                     )
-                                    console.log('usemapping ' + mappings)
                                 }
 
                                 messg = StatusAlertService.showSuccess(
@@ -354,9 +336,6 @@ export const InteropRunTaskForm = () => {
                                 const iterate = obj => {
                                     Object.keys(obj).forEach(key => {
                                         if (key === 'dataValues') {
-                                            console.log(
-                                                `key: ${key}, value: ${obj[key]}`
-                                            )
                                             instanceObject.data.trackedEntityInstances.dataValues.push(
                                                 obj[key]
                                             )
@@ -486,9 +465,7 @@ export const InteropRunTaskForm = () => {
                                     setAlertId({
                                         messg,
                                     })
-                                    console.log(
-                                        JSON.stringify(instanceObject.data)
-                                    )
+
                                     var tmp = JSON.parse(
                                         JSON.stringify(instanceObject.data)
                                     )
@@ -529,11 +506,6 @@ export const InteropRunTaskForm = () => {
                                         taskObjectMeta[6] ===
                                             'Go.Data Contact of Contact'
                                     ) {
-                                        console.log(
-                                            'sender instance ' +
-                                                taskObjectMeta[6]
-                                        )
-
                                         var endpoints = taskObjectMeta[0].split(
                                             ' '
                                         )
@@ -559,14 +531,6 @@ export const InteropRunTaskForm = () => {
                                                 },
                                             }
                                         )
-                                        console.log(
-                                            'ids of contacts ' +
-                                                JSON.stringify(instanceIds) +
-                                                ' ' +
-                                                JSON.stringify(
-                                                    instanceIds.data.rows[0][0]
-                                                )
-                                        )
                                         var fromPromise = []
                                         for (
                                             let x = 0;
@@ -577,7 +541,6 @@ export const InteropRunTaskForm = () => {
                                                 instanceIds.data.rows[x][0]
                                             )
                                         }
-                                        console.log('jinout ' + fromPromise)
                                         instanceObject = {}
                                         instanceObject['data'] = {}
                                         instanceObject.data[
@@ -624,11 +587,6 @@ export const InteropRunTaskForm = () => {
                                             )
                                             //iterate(instanceObject.data.trackedEntityInstances)
                                         }
-
-                                        console.log(
-                                            'contacts ' +
-                                                JSON.stringify(instanceObject)
-                                        )
                                     } else {
                                         instanceObject = await axios.get(
                                             taskObjectMeta[0] +
@@ -657,14 +615,6 @@ export const InteropRunTaskForm = () => {
                                     setAlertId({
                                         messg,
                                     })
-                                    console.log(
-                                        'instanceObject.data' +
-                                            JSON.stringify(instanceObject.data)
-                                    )
-                                    console.log(
-                                        'jsonCollectionName ' +
-                                            taskObjectMeta[7]
-                                    )
                                     var tmp = JSON.parse(
                                         JSON.stringify(
                                             instanceObject.data[
@@ -684,15 +634,6 @@ export const InteropRunTaskForm = () => {
                                                 ? 1
                                                 : -1
                                             : -1
-                                    )
-
-                                    console.log(
-                                        'sortedObjs ' +
-                                            JSON.stringify(
-                                                instanceObject.data[
-                                                    taskObjectMeta[7]
-                                                ]
-                                            )
                                     )
 
                                     instance = []
@@ -721,12 +662,7 @@ export const InteropRunTaskForm = () => {
                                                             object
                                                         )
                                                     )
-                                                    console.log(
-                                                        'centroid latitude ' +
-                                                            centroidPoint
-                                                                .geometry
-                                                                .coordinates[0]
-                                                    )
+
                                                     lon =
                                                         centroidPoint.geometry
                                                             .coordinates[0]
@@ -789,11 +725,7 @@ export const InteropRunTaskForm = () => {
                                         parentChild = JSON.parse(
                                             JSON.stringify(parentChild)
                                         ) //get real copy from promise
-                                        console.log(
-                                            parentChild.length +
-                                                ' pc ' +
-                                                JSON.stringify(parentChild)
-                                        )
+
                                         //reduce relationships of org units
                                         const idMapping = parentChild.reduce(
                                             (acc, el, i) => {
@@ -802,7 +734,6 @@ export const InteropRunTaskForm = () => {
                                             },
                                             {}
                                         )
-                                        console.log(JSON.stringify(idMapping))
                                         //now link them together so we have one hierarchy
                                         let root
                                         parentChild.forEach(el => {
@@ -812,10 +743,6 @@ export const InteropRunTaskForm = () => {
                                                 undefined
                                             ) {
                                                 root = el
-                                                console.log(
-                                                    'root id ' +
-                                                        root.location.id
-                                                )
                                                 return
                                             }
                                             // Use our mapping to locate the parent element in our data array
@@ -833,9 +760,6 @@ export const InteropRunTaskForm = () => {
                                             ]
                                         })
 
-                                        console.log(
-                                            'root ' + JSON.stringify(root)
-                                        )
                                         //send org units to the server
 
                                         const json = JSON.stringify([root])
@@ -967,7 +891,6 @@ export const InteropRunTaskForm = () => {
 
     const runAllTasks = () => {
         for (var y = 0; y < checkedConstants.length; y++) {
-            console.log('yofchecked ' + y)
             if (taskType === 'Go.Data Location' && y === 1) {
                 return
             }
@@ -1045,9 +968,6 @@ export const InteropRunTaskForm = () => {
                             }
                         } else {
                             i++
-                            console.log(
-                                'payloadItem ' + item.stack + '.' + property
-                            )
                             dot.str(
                                 (item.stack + '.' + property)
                                     .substr(1)
@@ -1095,9 +1015,6 @@ export const InteropRunTaskForm = () => {
                 // PARTY OBJECT AND IF THERE IS CONVERSION OF VALUES TO PROCESS CONVERSION
                 if (tmp.props.conversion === 'true') {
                     //console.log('senderData' + senderData)
-                    console.log(
-                        'selected object ' + JSON.stringify(checkedConstants)
-                    )
                     stmp = senderData[0] //TO BE DYNAMIC
 
                     let val = dot.pick(tmp.dhis2, stmp) //IN CASE OF GO.DATA, PROPERTY IS USED FOR SEARCHING CONVERSION VALUE
@@ -1142,7 +1059,6 @@ export const InteropRunTaskForm = () => {
             if (tmp) {
                 //IF MAPPING FOUND HAS CONVERSION. THIS MEANS VALUE SHOULD BE FETCHED FROM OTHER
                 // PARTY OBJECT AND IF THERE IS CONVERSION OF VALUES TO PROCESS CONVERSION
-                console.log('conversion ' + tmp.props.conversion)
 
                 if (
                     tmp.props.conversion === 'true' ||
@@ -1150,7 +1066,6 @@ export const InteropRunTaskForm = () => {
                 ) {
                     //console.log('senderData' + senderData)
                     let val = dot.pick(tmp.dhis2, stmp)
-                    console.log('val ' + val)
                     //set val to string if its number
                     if (typeof val === 'number') {
                         val = val.toString()
@@ -1172,12 +1087,6 @@ export const InteropRunTaskForm = () => {
 
                     let keys = Object.keys(tmp.props.values)
                     for (let i = 0; i < keys.length; i++) {
-                        console.log(
-                            'keys[] ' +
-                                tmp.props.values[keys[i]] +
-                                ' stbool ' +
-                                stringBoolean
-                        )
                         if (stringBoolean == tmp.props.values[keys[i]]) {
                             return keys[i]
                         }
@@ -1194,10 +1103,7 @@ export const InteropRunTaskForm = () => {
                             var centroidPoint = centroid(
                                 dot.pick('geometry', stmp)
                             )
-                            console.log(
-                                'centroid latitude ' +
-                                    centroidPoint.geometry.coordinates[0]
-                            )
+
                             var lon = centroidPoint.geometry.coordinates[0]
                             var lat = centroidPoint.geometry.coordinates[1] //console.log('tmp.godata ' + tmp.godata)
                             if (Number.isNaN(centroidPoint)) {
@@ -1225,23 +1131,17 @@ export const InteropRunTaskForm = () => {
                         } else if ((geom.type = 'Point')) {
                             var point = dot.pick('geometry.coordinates', stmp)
                             if (tmp.godata === 'geoLocation.lat') {
-                                console.log(point[0])
                                 return point[0]
                             } else if (tmp.godata === 'geoLocation.lng') {
-                                console.log(point[1])
                                 return point[1]
                             }
                         } else {
                             return 0
                         }
-                        console.log(JSON.stringify('geom ' + geom.type))
                     }
                     //none of tries are successful, simply return 0
                     return 0
                 } else if (tmp.props.conversion === 'delm') {
-                    console.log(
-                        'processing delm ' + stmp.enrollments[0].events.length
-                    )
                     for (
                         var i = 0;
                         i < stmp.enrollments[0].events.length;
@@ -1265,7 +1165,6 @@ export const InteropRunTaskForm = () => {
                         }
                     }
                 } else if (tmp.props.conversion === 'attr') {
-                    console.log('processing attr ' + stmp.attributes.length)
                     for (var i = 0; i < stmp.attributes.length; i++) {
                         if (stmp.attributes[i].attribute == tmp.dhis2) {
                             console.log(
@@ -1305,11 +1204,9 @@ export const InteropRunTaskForm = () => {
             })
 
             if (res.status == 200) {
-                console.log('res.data.id ' + res.data.id)
                 setToken(JSON.parse(JSON.stringify(res.data.id)))
 
                 if (taskType === 'Go.Data Location') {
-                    console.log('Go.Data Location sending' + file)
                     axios({
                         method: 'post',
                         url: receiver + '?access_token=' + res.data.id,
@@ -1323,7 +1220,6 @@ export const InteropRunTaskForm = () => {
                     })
                         .then(function(response) {
                             //handle success
-                            console.log('ou resp success ' + response)
                             messg = StatusAlertService.showSuccess(
                                 i18n.t(
                                     'Locations send and processed successfully' +
@@ -1339,7 +1235,6 @@ export const InteropRunTaskForm = () => {
                         })
                         .catch(function(response) {
                             //handle error
-                            console.log('ou resp failed ' + response)
                             messg = StatusAlertService.showError(
                                 i18n.t(
                                     'Locations sending failed: ' +
@@ -1354,7 +1249,6 @@ export const InteropRunTaskForm = () => {
                             })
                         })
                 } else {
-                    console.log('payloadModel ' + JSON.stringify(payloadModel))
                     let ans = await axios({
                         method: 'POST',
                         data: payloadModel,
@@ -1369,8 +1263,6 @@ export const InteropRunTaskForm = () => {
                     })
 
                     if (res.status == 200) {
-                        console.log('res.data ' + JSON.stringify(ans.data))
-
                         messg = StatusAlertService.showSuccess(
                             i18n.t(
                                 'Data send successfully. ' +
@@ -1387,7 +1279,6 @@ export const InteropRunTaskForm = () => {
                 }
             }
         } catch (error) {
-            console.log('outer error: ' + JSON.stringify(error))
             //console.log('error message ' + JSON.stringify(error.response.data));
             //console.log(error.response.status);
             messg = StatusAlertService.showError(

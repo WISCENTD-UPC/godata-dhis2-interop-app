@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-24T16:45:24.528Z\n"
-"PO-Revision-Date: 2022-02-24T16:45:24.528Z\n"
+"POT-Creation-Date: 2022-03-12T00:58:26.641Z\n"
+"PO-Revision-Date: 2022-03-12T00:58:26.641Z\n"
 
 msgid "Are you sure you want to cancel? Unsaved changes will be lost"
 msgstr ""
@@ -270,6 +270,9 @@ msgid "Add constant"
 msgstr ""
 
 msgid "Form"
+msgstr ""
+
+msgid "DHIS custom"
 msgstr ""
 
 msgid ""
